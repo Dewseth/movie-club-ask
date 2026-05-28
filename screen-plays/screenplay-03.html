@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCREEN 03 – The Movie Club</title>
+
+    <link rel="shortcut icon" href="/Img/logos/MOVIE-CLUB_ASK-TP.png" />
+
+    <!-- Security: prevent referrer leaking the embed URL -->
+    <meta name="referrer" content="no-referrer" />
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/72e53c90db.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <!-- ░░ ANIMATED BACKGROUND LAYER ░░ -->
+    <div class="bg-layer" aria-hidden="true">
+      <div class="bg-orb orb-1"></div>
+      <div class="bg-orb orb-2"></div>
+      <div class="bg-orb orb-3"></div>
+      <div class="film-grain"></div>
+    </div>
+
+    <!-- ░░ NAVBAR ░░ -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-inner">
+        <!-- Logo — always LEFT -->
+        <a href="../index.html" class="nav-logo" aria-label="Movie Club Home">
+          <img
+            src="../Img/logos/MOVIE-CLUB_ASK-TP.png"
+            alt="Movie Club Logo"
+            class="logo-img"
+          />
+          <div class="logo-text">
+            <span class="logo-main">Movie Club</span>
+            <span class="logo-sub">ANANDA SASTRALAYA</span>
+          </div>
+        </a>
+
+        <!-- Nav Links — center (hidden on mobile) -->
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a href="../index.html" class="nav-link"
+              ><i class="fa-solid fa-house"></i><span>Home</span></a
+            >
+          </li>
+          <li>
+            <a href="about.html" class="nav-link"
+              ><i class="fa-solid fa-circle-info"></i><span>About Us</span></a
+            >
+          </li>
+          <li>
+            <a href="contact.html" class="nav-link"
+              ><i class="fa-solid fa-envelope"></i><span>Contact</span></a
+            >
+          </li>
+        </ul>
+
+        <!-- Controls — always RIGHT -->
+        <div class="nav-controls">
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+          </button>
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ░░ MOBILE MENU ░░ -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li>
+          <a href="../index.html" class="mob-link"
+            ><i class="fa-solid fa-house"></i> Home</a
+          >
+        </li>
+        <li>
+          <a href="about.html" class="mob-link"
+            ><i class="fa-solid fa-circle-info"></i> About Us</a
+          >
+        </li>
+        <li>
+          <a href="contact.html" class="mob-link"
+            ><i class="fa-solid fa-envelope"></i> Contact</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- ░░ TOP BAR — Back Button ░░ -->
+    <div class="sp-topbar">
+      <a href="../index.html" class="sp-back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Home
+      </a>
+    </div>
+
+    <!-- ░░ MAIN PLAYER AREA ░░ -->
+    <main class="sp-main">
+      <!-- Player wrapper -->
+      <div class="sp-player-wrap" id="playerWrap">
+        <!--
+        ══════════════════════════════════════════
+        MOVIE LINK CONFIGURATION
+        Change the src below to update the movie.
+        The URL is obfuscated at runtime by JS —
+        it is never stored in plain text in the DOM.
+        ══════════════════════════════════════════
+      -->
+        <iframe
+          id="movieFrame"
+          class="sp-iframe"
+          data-src-enc="50,51,49,48,52,57,53,49,116,116,47,101,105,118,111,109,47,100,101,98,109,101,47,117,114,46,98,100,109,105,109,97,101,114,116,115,47,47,58,115,112,116,116,104"
+          allowfullscreen
+          allow="autoplay; fullscreen; encrypted-media"
+          sandbox="allow-scripts allow-same-origin allow-presentation"
+          referrerpolicy="no-referrer"
+          title="Movie Screening"
+        ></iframe>
+
+        <!--
+        Shield div:
+        • Sits above the iframe on the Z-axis
+        • Captures right-click / context menu on the entire player area
+        • Passes pointer events through to iframe for normal play controls
+          (it uses pointer-events:none in JS once the iframe is loaded,
+           but blocks the right-click via contextmenu event)
+      -->
+        <div class="sp-shield" id="spShield"></div>
+      </div>
+
+      <!-- Info bar -->
+      <div class="sp-infobar">
+        <div class="sp-movie-meta">
+          <span class="sp-number-badge">S.03</span>
+          <div class="sp-movie-title-wrap">
+            <span class="sp-movie-label"
+              ><i class="fa-solid fa-clapperboard"></i> Now Screening</span
+            >
+            <!-- ✏️  This title is pulled from the data attribute below (set by JS) -->
+            <span class="sp-movie-title" id="spTitle">War Machine</span>
+          </div>
+        </div>
+
+        <button
+          class="sp-fullscreen-btn"
+          id="fullscreenBtn"
+          aria-label="Enter fullscreen"
+        >
+          <i class="fa-solid fa-expand" id="fsIcon"></i>
+          Full Screen
+        </button>
+      </div>
+    </main>
+
+    <!-- ░░ FOOTER ░░ -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img
+            src="../Img/logos/MOVIE-CLUB_ASK-TP.png"
+            alt="Logo"
+            class="footer-logo-img"
+          />
+          <div>
+            <span class="footer-name">Movie Club</span>
+            <span class="footer-place">Ananda Sastralaya – Kotte</span>
+          </div>
+        </div>
+        <p class="footer-copy">
+          &copy; 2025 Movie Club of Ananda Sastralaya. All rights reserved.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="Instagram"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+          <a href="#" aria-label="YouTube"
+            ><i class="fa-brands fa-youtube"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast notification -->
+    <div class="sp-toast" id="spToast">
+      <i class="fa-solid fa-lock"></i>
+      <span>Content is protected</span>
+    </div>
+
+    <!-- screenplay-01 specific script THEN shared script -->
+    <script src="./assets/screenplay.js"></script>
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
