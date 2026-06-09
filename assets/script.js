@@ -9,7 +9,7 @@
    Format: new Date("YYYY-MM-DDTHH:MM:SS")
    Example below = 7 days from a chosen date.
    ──────────────────────────────────────────── */
-const EXPIRY_DATE = new Date("2026-06-05T23:59:59");
+const EXPIRY_DATE = new Date("2026-06-15T23:59:59");
 //                                ↑ YYYY-MM-DD  ↑ HH:MM:SS
 
 /* ══════════════════════════════════════════════
